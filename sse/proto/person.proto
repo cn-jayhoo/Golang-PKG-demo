@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "./service_api;service_api";
+
+import "google/api/annotations.proto";
+
+service EventService {
+  rpc StreamEvents (EventRequest) returns (stream EventResponse) {
+    option (google.api.http) = {
+      get: "/v1/events"
+    };
+  }
+}
+
+message EventRequest {
+  string client_id = 1;
+}
+
+message EventResponse {
+  string event_type = 1;
+  string data = 2;
+}
